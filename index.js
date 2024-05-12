@@ -75,7 +75,7 @@ const prompt = require("inquirer").createPromptModule();
 
     // Final consts
     log("Setting up consts");
-    const vidExtension = "mp4";
+    const vidExtension = "webm";
     const host = `https://ondemand-player.sans.org/${courseId}`;
     const videoHost = (modId, vidId) => `https://olt-content.sans.org/${modId}/video/${(`000${vidId + 1}`.substr(-3))}-720.${vidExtension}`;
     const graphHost = "https://ondemand.sans.org/api/graphql";
@@ -158,7 +158,7 @@ const prompt = require("inquirer").createPromptModule();
     await client.send("Network.setBypassServiceWorker", {bypass: true});
     await page.setRequestInterception(true);
     page.on("request", async (req) => {
-        if(req.url().includes("main.c41543fd.js")) {
+        if(req.url().includes("main.7b442879.js")) {
             req.respond({
                 status: 200,
                 body: await fs.readFileSync(path.join(__dirname, "patchedMain.js")),
