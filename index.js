@@ -158,7 +158,7 @@ const prompt = require("inquirer").createPromptModule();
     await client.send("Network.setBypassServiceWorker", {bypass: true});
     await page.setRequestInterception(true);
     page.on("request", async (req) => {
-        if(req.url().includes("main.7b442879.js")) {
+        if(/main\..{8}.js/g.test(req.url())) {
             req.respond({
                 status: 200,
                 body: await fs.readFileSync(path.join(__dirname, "patchedMain.js")),
